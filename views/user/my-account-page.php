@@ -1,0 +1,417 @@
+<div class="wrap lcp-content my-personal-profile">
+
+<h2><?php echo $page_title; ?></h2>
+
+<?php if( @$message ) : ?>
+<p class="text-center alert alert-success" role="alert"><?php echo $message; ?></p>
+<?php endif; ?>
+
+<?php
+//print_r($company);
+
+//get user's username
+//$user_data = get_userdata($user_ID);
+//$plugin_dir = plugin_dir_path(__FILE__);
+
+//plugin_dir_path( __FILE__ )
+//get_site_url();
+//plugin_dir_url($file)
+//echo plugins_url().'/lead-capture-pro/client-docs/'.$user_data->user_login.'/income/'.@$incomelodgement->icm_payg_summary_docs;
+//print_r($user_data);				
+//$username = $user_data->user_login;
+//echo $username;
+
+/*
+stdClass Object ( [id] => 16 [hash] => d845ff224eee6bad813cf39d8904bb68 [company_name] => My Companiee [salutation] => Mr [first_name] => Johno [last_name] => McLennon [other_name] => [name_changed] => No [previous_name] => [date_of_birth] => 1989-05-10 [postal_address_q] => No [address1] => 21 wade st [address2] => waneroo [city] => perth [state] => Western Australia [post_code] => 6001 [postal_address] => [day_phone] => 0451250992 [mobile_phone] => 045125992 [alt_phone] => [email_address] => johno@email.com [tax_file_no] => 354543543 [whole_yr_tax_resident] => Yes [tax_resident_year] => Yes [tax_resident_year_ces] => Yes [tax_resident_start] => 2016-08-09 [tax_resident_stop] => 2016-08-08 [main_occupation] => Bus driver [have_abn_no] => Yes [abn_no] => 1212121212 [nature_of_business] => side businsss [married_defacto] => No [spouse_first_name] => [spouse_last_name] => [spouse_other_name] => [spouse_date_birth] => 0000-00-00 [spouse_tax_file_no] => [spouse_tax_income] => [spouse_whole_year] => No [spouse_from_to] => 0000-00-00 [have_children] => No [child_name] => [child_dob] => 0000-00-00 [credit_limit] => 0 [receive_leads] => yes [status] => approved [user_id] => 11 [created_at] => 2016-08-29 06:49:04 [updated_at] => 2016-08-29 18:44:00 [ID] => 11 [user_login] => Johno [user_pass] => $P$B93ePT/nI7fn1FOxvh9mQuai.9G9Cm0 [user_nicename] => johno [user_email] => johno@email.com [user_url] => johno@email.com [user_registered] => 2016-08-29 06:49:04 [user_activation_key] => 1472453473:$P$BbkFxdG400b51jnf0x7UnLYShuPf/v1 [user_status] => 0 [display_name] => Johno )
+*/
+?>
+
+<form class="" action="" method="post" enctype="multipart/form-data">
+
+<div class="row">
+	<div class="col-sm-12">
+		<div class="form-group pull-right">
+			<input type="submit" class="btn btn-success" name="op" value="Save">
+		</div>
+	</div>
+</div>
+
+<div class="panel panel-primary">
+
+<div class="panel-heading">
+<h3 class="panel-title">Personal Information</h3>
+</div>
+
+<div class="panel-body">		
+
+<div class="well well-lg">
+<div class="row">
+	<div class="col-sm-1">
+	<div class="form-group">
+		<label for="">Salutation<span class="form-required">*</span></label><br>
+		<select name="salutation" id="">
+		  <option value="Mr" <?php if(@$company->salutation == "Mr"){echo 'selected="selected"';} ?>>Mr</option>
+		  <option value="Mrs" <?php if(@$company->salutation == "Mrs"){echo 'selected="selected"';} ?>>Mrs</option>
+		  <option value="Miss" <?php if(@$company->salutation == "Miss"){echo 'selected="selected"';} ?>>Miss</option>
+		</select>
+	</div>
+	</div>
+	
+	<div class="col-sm-4">
+	<div class="form-group">
+		<label for="">First Name<span class="form-required">*</span></label>
+		<input type="text" required class="form-control" name="first_name" id="" placeholder="" value="<?php echo @$company->first_name; ?>">
+	</div>
+	</div>
+	
+	<div class="col-sm-4">
+	<div class="form-group">
+		<label for="">Surname<span class="form-required"><span class="form-required">*</span></span></label>
+		<input type="text" required class="form-control" name="last_name" id="" value="<?php echo @$company->last_name; ?>" placeholder="">
+	</div>
+	</div>
+	
+	<div class="col-sm-3">
+	<div class="form-group">
+		<label for="">Other Name </label>
+		<input type="text" class="form-control" name="other_name" id="" value="<?php echo @$company->other_name; ?>" placeholder="">
+	</div>
+	</div>					
+</div>
+
+<div class="row">
+<div class="col-sm-6">
+<div class="form-group">
+	<label>Has your name changed since you last completed your tax return? <span class="form-required">*</span></label> 
+	<label class="radio-inline">
+		<input type="radio" class="has-div-to-show prev_name" name="name_changed" id="" value="yes" <?php if( @$company->name_changed == "Yes" ) { echo "checked"; } ?>> Yes								
+	</label>
+	<label class="radio-inline">							
+		<input type="radio" class="has-div-to-show prev_name" name="name_changed" id="" value="no" <?php if( @$company->name_changed == "No" ||  @$company->name_changed == "") { echo "checked"; } ?>> No
+	</label>
+	
+	<br>
+	<div class="hidden to-show">
+		<p><input type="text" class="form-control" name="previous_name" id="" value="<?php echo @$company->previous_name ?>" placeholder="Previous Name"></p>
+	</div>
+</div>
+</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-6">
+		<div class="form-group">
+			<label for="">Telephone No<span class="form-required">*</span></label>
+			<input type="text" required class="form-control" name="day_phone" id="" value="<?php echo @$company->day_phone; ?>" placeholder="">
+		</div>
+	</div>
+
+	<div class="col-sm-6">
+		<div class="form-group">
+			<label for="">Email Address<span class="form-required">*</span></label>
+			<input type="email" required class="form-control" name="email_address" id="" value="<?php echo @$company->email_address; ?>" placeholder="">
+		</div>
+	</div>					
+</div>				
+
+<div class="row">
+<div class="col-sm-3">
+<div class="form-group">
+	<label for="">Address<span class="form-required">*</span></label>
+	<input type="text" required class="form-control" name="address1" id="" value="<?php echo @$company->address1; ?>" placeholder="">
+</div>
+</div>
+<div class="col-sm-3">
+<div class="form-group">
+	<label for="">Suburb<span class="form-required">*</span></label>
+	<input type="text" required class="form-control" name="address2" id="" value="<?php echo @$company->address2; ?>" placeholder="">
+</div>
+</div>
+
+<div class="col-sm-2">
+<div class="form-group">
+	<label for="">City<span class="form-required">*</span></label>
+	<input type="text" required class="form-control" name="city" id="" value="<?php echo @$company->city; ?>" placeholder="">
+</div>
+</div>
+<div class="col-sm-2">
+<div class="form-group">
+	<label for="">Post Code<span class="form-required">*</span></label>
+	<input type="text" required class="form-control" name="post_code" id="" value="<?php echo @$company->post_code; ?>" placeholder="">
+</div>
+</div>
+<div class="col-sm-2">
+<div class="form-group">
+	<label for="">State<span class="form-required">*</span></label>	
+	<select name="state" id="stateoption">
+	  <option value="New South Wales" <?php if(@$company->state == "New South Wales"){echo 'selected="selected"';} ?>>New South Wales</option>
+	  <option value="Queensland" <?php if(@$company->state == "Queensland"){echo 'selected="selected"';} ?>>Queensland</option>
+	  <option value="Tasmania" <?php if(@$company->state == "Tasmania"){echo 'selected="selected"';} ?>>Tasmania</option>
+	  <option value="Western Australia" <?php if(@$company->state == "Western Australia"){echo 'selected="selected"';} ?>>Western Australia</option>
+	  <option value="South Australia" <?php if(@$company->state == "South Australia"){echo 'selected="selected"';} ?>>South Australia</option>
+	  <option value="Victoria" <?php if(@$company->state == "Victoria"){echo 'selected="selected"';} ?>>Victoria</option>
+	</select>
+</div>
+</div>									
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div class="form-group">
+	<label>Is your postal address the same as your residential address? <span class="form-required">*</span></label> 
+	<label class="radio-inline">
+		<input type="radio" class="has-div-to-show postaladdress" name="postal_address_q" id="" value="yes" <?php if( @$company->postal_address_q == "Yes" ) { echo "checked"; } ?>> No
+	</label>
+	<label class="radio-inline">							
+		<input type="radio" class="has-div-to-show postaladdress" name="postal_address_q" id="" value="no" <?php if( @$company->postal_address_q == "No" || @$company->postal_address_q == "" ) { echo "checked"; } ?>> Yes
+	</label>	
+	
+	<div class="hidden to-show">								
+		<div class="form-group">
+			<label for="">Postal Address<span class="form-required">*</span></label>
+			<input type="text" class="form-control" name="postal_address" id="" value="<?php echo @$company->postal_address; ?>" placeholder="Postal Address">
+		</div>		
+	</div>
+</div>
+</div>
+</div>
+</div>
+			
+
+
+<div class="well well-lg">
+<div class="row">
+	<div class="col-sm-6">					
+		<div class="form-group">
+		<label>Date of Birth (Yr/Mth/Dy)<span class="form-required">*</span></label>
+		<input type="text" required name="date_of_birth" class="form-control datepicker" value="<?php echo @$company->date_of_birth; ?>" />
+		</div>
+	</div>	
+	
+	<div class="col-sm-6">
+		<div class="form-group">
+		<label>Tax File Number<span class="form-required">*</span></label>
+		<input type="text" required class="form-control" name="tax_file_no" id="" value="<?php echo @$company->tax_file_no; ?>" placeholder="">
+		</div>
+	</div>		
+</div>
+</div>
+
+<div class="well well-lg">
+<div class="row">
+<div class="col-sm-12">
+<div class="form-group">
+	<label>Were you an Australian tax resident for the whole tax year? <span class="form-required">*</span></label> 
+	<label class="radio-inline">
+		<input type="radio" name="whole_yr_tax_resident" class="has-div-to-show tax_res_year" id="" value="yes" <?php if( @$company->whole_yr_tax_resident == "No" ) { echo "checked"; } ?>> No
+	</label>
+	<label class="radio-inline">							
+		<input type="radio" name="whole_yr_tax_resident" class="has-div-to-show tax_res_year" id="" value="no" <?php if( @$company->whole_yr_tax_resident == "Yes" || @$company->whole_yr_tax_resident == "" ) { echo "checked"; } ?>> Yes
+	</label>
+	
+	
+	<div class="hidden to-show">
+	<div class="row">
+		
+		<div class="col-sm-3">
+		<div class="form-group">
+		<label>Did you</label>
+			<select name="state" id="stateoption">
+			  <option value="Became a resident" <?php if(@$company->tax_resident_part_year == "became"){echo 'selected="selected"';} ?>>Become a resident</option>
+			  <option value="Ceased to be a resident" <?php if(@$company->tax_resident_part_year == "ceased"){echo 'selected="selected"';} ?>>Ceased to be a resident</option>
+			</select>
+		</div>
+						
+			<div class="form-group">
+				<div class="form-inline"><label>Date became or ceased to be a tax resident<span class="form-required">*</span></label></div>
+			   	<input type="text" name="tax_resident_part_year_date" class="form-control datepicker" id="" value="<?php echo @$company->tax_resident_part_year_date; ?>"/>
+			 </div>
+		</div>
+			
+	</div>
+	</div>
+	
+
+</div>
+</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-6">
+		<div class="form-group">
+			<label for="">What is your main occupation? <span class="form-required">*</span></label>
+			<input type="text" required class="form-control" name="main_occupation" id="" value="<?php echo @$company->main_occupation; ?>" placeholder="">
+		</div>
+	</div>													
+</div>				
+
+<div class="row">
+<div class="col-sm-6">
+<div class="form-group">
+	<label>Do you have an ABN number? <span class="form-required">*</span></label> 
+	<label class="radio-inline">
+		<input type="radio" class="has-div-to-show abn_num" name="have_abn_no" id="" value="yes" <?php if( @$company->have_abn_no == "Yes" ) { echo "checked"; } ?>> Yes								
+	</label>
+	<label class="radio-inline">							
+		<input type="radio" class="has-div-to-show abn_num" name="have_abn_no" id="" value="no" <?php if( @$company->have_abn_no == "No" || @$company->have_abn_no == "" ) { echo "checked"; } ?>> No
+	</label>
+	<br>
+	<div class="hidden to-show">		
+		<label for="">ABN Number</label>
+		<input type="text" class="form-control" name="abn_no" id="" value="<?php echo @$company->abn_no ?>" placeholder="ABN Number">
+		<br>
+		<label for="">Nature of the Business Conducted</label>
+		<input type="text" class="form-control" name="nature_of_business" id="" value="<?php echo @$company->nature_of_business ?>" placeholder="Nature of the Business Conducted">		
+		<div class="form-group">
+			<label for="">Company Name<span class="form-required">*</span></label>
+			<input type="text" class="form-control" name="company_name" id="" value="<?php echo @$company->company_name; ?>" placeholder="">
+		</div>		
+	</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="well well-lg">
+<div class="row">
+<div class="col-sm-12">
+<div class="form-group">
+	<label>Are you married or in a de facto relationship<span class="form-required">*</span></label> 
+	<label class="radio-inline">
+		<input type="radio" class="has-div-to-show are_you_married" name="married_defacto" id="" value="yes" <?php if( @$company->married_defacto == "Yes" ) { echo "checked"; } ?>> Yes								
+	</label>
+	<label class="radio-inline">							
+		<input type="radio" class="has-div-to-show re_you_married" name="married_defacto" id="" value="no" <?php if( @$company->married_defacto == "No" || @$company->married_defacto == "" ) { echo "checked"; } ?>> No
+	</label>
+	<br><br>
+	<div class="hidden to-show">
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="form-group">
+					<label for="">Spouse's Surname<span class="form-required">*</span></label>
+					<input type="text" class="form-control" name="spouse_last_name" value="<?php echo @$company->spouse_last_name; ?>" placeholder="">
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="form-group">
+					<label for="">Spouse's First Name<span class="form-required">*</span></label>
+					<input type="text" class="form-control" name="spouse_first_name" value="<?php echo @$company->spouse_first_name; ?>" placeholder="">
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="form-group">
+					<label for="">Spouse's Other Name</label>
+					<input type="text" class="form-control" name="spouse_other_name" value="<?php echo @$company->spouse_other_name; ?>" placeholder="">
+				</div>
+			</div>					
+		</div>	
+		
+		<div class="row">
+			<div class="col-sm-12">
+				<label>Spouse's Date of Birth (Yr/Mth/Dy)<span class="form-required">*</span></label>
+			</div>
+			
+			<div class="col-sm-4">						
+				<div class="form-group">
+				   	<input type="text" name="spouse_date_birth" class="form-control datepicker" id="" value="<?php echo @$company->spouse_date_birth; ?>"/>
+				   </div>
+			</div>			
+		</div>								
+		
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="form-group">
+					<label for="">Spouse’s Tax File No<span class="form-required">*</span></label>
+					<input type="text" class="form-control" name="spouse_tax_file_no" id="" value="<?php echo @$company->spouse_tax_file_no; ?>" placeholder="">
+				</div>
+			</div>													
+		</div>
+		
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="form-group">
+					<label for="">Spouse's Taxable Income<span class="form-required">*</span></label>
+					<input type="text" class="form-control" name="spouse_tax_income" id="" value="<?php echo @$company->spouse_tax_income; ?>" placeholder="">
+				</div>
+			</div>													
+		</div>
+		
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="form-group">
+					<label>Spouse for whole year? <span class="form-required">*</span></label> 
+					<label class="radio-inline">
+						<input type="radio" name="spouse_whole_year" class="has-div-to-show spouce_from_date" id="" value="yes" <?php if( @$company->spouse_whole_year == "Yes" ) { echo "checked"; } ?>> No								
+					</label>
+					<label class="radio-inline">							
+						<input type="radio" name="spouse_whole_year" class="has-div-to-show spouce_from_date" id="" value="no" <?php if( @$company->spouse_whole_year == "No" || $company->spouse_whole_year == "") { echo "checked"; } ?>> Yes
+					</label>
+					<br><br>
+					<div class="hidden to-show">
+						<div class="col-sm-4">	
+						<label for="">Date from/to<span class="form-required">*</span></label>					
+						<div class="form-group">
+						   	<input type="text" name="spouse_from_to" class="form-control datepicker" value="<?php echo @$company->spouse_from_to; ?>" />
+						</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="form-group">
+					<label>Do you have dependent children? <span class="form-required">*</span></label> 
+					<label class="radio-inline">
+						<input type="radio" name="have_children" class="has-div-to-show have_kids" id="" value="yes" <?php if( @$company->have_children == "Yes" ) { echo "checked"; } ?>> Yes								
+					</label>
+					<label class="radio-inline">							
+						<input type="radio" name="have_children" class="has-div-to-show have_kids" id="" value="no" <?php if( @$company->have_children == "No" || $company->have_children == "") { echo "checked"; } ?>> No
+					</label>												
+				</div>
+			</div>
+		</div>		
+	</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="well well-lg">
+	<div class="form-group">
+    <label>Did you and all your dependents have private medical health?</label> 
+    <label class="radio-inline">
+        <input type="radio" class="has-div-to-show" name="private_hlth_insurnce_q" value="yes" <?php if (@$company->private_hlth_insurnce_q == "Yes") {echo "checked";} ?>> Yes
+    </label>
+    <label class="radio-inline">							
+        <input type="radio" class="has-div-to-show" name="private_hlth_insurnce_q" value="no" <?php if (@$company->private_hlth_insurnce_q == "No" || @$company->private_hlth_insurnce_q == "") {echo "checked";} ?>> No
+    </label>
+    <div class="hidden to-show">
+        <div class="row">
+            <div class="col-sm-6">
+                <label class="control-label">Attach Evidence</label>							
+                <input id="private_hlth_insurnce_docs" type="file" class="file" name="private_hlth_insurnce_docs">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">					
+                <br><p>Current upload: <a target="_blank" href="<?php echo plugins_url() . '/lead-capture-pro/client-docs/' . $user_data->user_login . 'personal-profile/' . @$company->company; ?>"> <?php echo @$company->private_hlth_insurnce_docs; ?></a></p>
+            </div>				
+        </div>
+	</div>	
+</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-12">
+		<div class="form-group pull-right">
+			<input type="submit" class="btn btn-success" name="option" value="Save">
+		</div>
+	</div>
+</div>
+
+</div>
+</form>
+<div>
+</div>
+</div>

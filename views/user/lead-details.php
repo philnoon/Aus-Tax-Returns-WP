@@ -3,6 +3,11 @@
 ?>
 <div class="wrap lcp-content">
 	<h2>Tax Lodgement Checkout</h2>
+	
+	<?php
+	//print_r($payment_results);
+	?>
+	
 	<?php if (isset($lead_paid_for)) : ?>
 	<div class="updated">
 		<p>Thank you, the lead has been purchased.</p>
@@ -44,19 +49,28 @@
 				<?php
 					include dirname(__FILE__).'/../partials/payment_gateways/'.$options['global']['lcp_payment_gateway'].'.php';
 				?>
-			</td>
+			</td>			
 		</tr>
+		
+		<tr>
+		<td>				
+			<form action="" method="post" target="_top">
+			 <input type="submit" value="Submit">
+			</form>
+		</td>
+		</tr>
+		
 		<?php endif; ?>
 	</table>
 	<?php
 	//}
-	?>
+	?>	
+	
 	<?php if(!is_null($payment_results)) : ?>
 	<h2>Lead Detail - Full Details</h2>
 	<table class="table">
 <?php
-foreach( $data as $row )
-{
+foreach( $data as $row ){
 ?>
 		<tr>
 			<td><?php echo $row['label'];?></td>
@@ -69,7 +83,9 @@ foreach( $data as $row )
 			<td>
 				<a href="<?php echo admin_url(); ?>admin.php?page=lcp_leads" class="button button-primary">Back</a>
 			</td>
-		</tr>
+		</tr>		
+		
+		
 	</table>
 	
 	<h2>Payment Details</h2>

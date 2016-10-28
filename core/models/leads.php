@@ -40,42 +40,13 @@ class LcpLeads {
 			return array();
 		}
 
-		$results = $this->db->wpdb->get_results("
-		
-		SELECT * FROM " . $this->db->tables['companies_leads'] ." WHERE ".$this->db->tables['companies_leads'].".company_id='".$id."'" ." ORDER BY id DESC");
-		
+		$results = $this->db->wpdb->get_results(	"SELECT * FROM " . $this->db->tables['companies_leads'] .
+													" JOIN " .$this->db->tables['leads']. " ON ".$this->db->tables['leads'].".id = ".$this->db->tables['companies_leads'].".lead_id".
+													" WHERE ".$this->db->tables['companies_leads'].".company_id='".$id."'" .
+													" ORDER BY created_at DESC");
 		return $results;
 
 	}
-	
-	
-	function getByCompanyLead($hash)
-		{
-	
-			$results = $this->db->wpdb->get_results("
-			
-			SELECT * FROM " . $this->db->tables['companies_leads'] ." WHERE ".$this->db->tables['companies_leads'].".hash='".$hash."'" ." ORDER BY id DESC");
-			
-			return $results;
-	
-		}
-	
-	/*
-	function getByCompanyID($id)
-		{
-	
-			if ( strlen($id) ==0 ) {
-				return array();
-			}
-	
-			$results = $this->db->wpdb->get_results("SELECT * FROM " . $this->db->tables['companies_leads'] .
-														" JOIN " .$this->db->tables['leads']. " ON ".$this->db->tables['leads'].".id = ".$this->db->tables['companies_leads'].".lead_id".
-														" WHERE ".$this->db->tables['companies_leads'].".company_id='".$id."'" .
-														" ORDER BY created_at DESC");
-			return $results;
-	
-		}
-		*/
 
 	/*
 	 *
@@ -83,18 +54,11 @@ class LcpLeads {
 	 * 	Added in Version 1.0.5
 	 *
 	 */
-	/*function getByHash($hash)
+	function getByHash($hash)
 	{
 		$results = $this->db->wpdb->get_results( "	SELECT * FROM ".$this->db->tables['leads']. " WHERE hash='".$hash."'" );
 		return $results[0];
-	}*/
-	
-	function getByHash($hash)
-	{
-		$results = $this->db->wpdb->get_results( "	SELECT * FROM ".$this->db->tables['companies_leads']. " WHERE hash='".$hash."'" );
-		return $results[0];
 	}
-	 
 
 	/*
 	 *
@@ -194,7 +158,6 @@ class LcpLeads {
 	 * 	Added in Version 1.0.5
 	 *
 	 */
-	/*
 	function hasPurchased($company_id, $lead_id)
 	{
 
@@ -206,18 +169,6 @@ class LcpLeads {
 		return $results;
 
 	}
-	*/
-	
-	function hasPurchased($company_id)
-		{
-	
-			$sql = "SELECT * FROM " . $this->db->tables['companies_leads'] .
-									" JOIN " . $this->db->tables['orders'] . " ON " . $this->db->tables['orders'] . ".company_id = " . $this->db->tables['companies_leads'] . ".company_id" .
-									" WHERE " . $this->db->tables['companies_leads'] . ".company_id='".$company_id."'";
-			$results = $this->db->wpdb->get_row($sql);
-			return $results;
-	
-		}
 
 	/*
 	 *
@@ -225,13 +176,11 @@ class LcpLeads {
 	 * 	Added in Version 1.0.5
 	 *
 	 */
-	function purchase($company_id, $lead_id, $order_id)
+	function purchase($company_id, $lead_id)
 	{
 
 		$data['lead_id'] 		= $lead_id;
-		$data['order_id'] 		= $order_id;
 		$data['company_id'] 	= $company_id;
-		$data['test'] 	= 'test purchase';
 		return $this->db->wpdb->insert( $this->db->tables['companies_leads'], $data);
 
 	}

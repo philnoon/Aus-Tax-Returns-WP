@@ -1,8 +1,7 @@
 <div class="wrap lcp-content">
 	<h2><?php echo $page_title; ?></h2>
 	<?php if ( count($results) > 0 ) : ?>
-	<?php	
-	
+	<?php
 	foreach( $results as $forms )
 	{
 	?>	

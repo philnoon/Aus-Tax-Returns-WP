@@ -20,6 +20,10 @@
 //print_r($user_data);				
 //$username = $user_data->user_login;
 //echo $username;
+
+/*
+stdClass Object ( [id] => 16 [hash] => d845ff224eee6bad813cf39d8904bb68 [company_name] => My Companiee [salutation] => Mr [first_name] => Johno [last_name] => McLennon [other_name] => [name_changed] => No [previous_name] => [date_of_birth] => 1989-05-10 [postal_address_q] => No [address1] => 21 wade st [address2] => waneroo [city] => perth [state] => Western Australia [post_code] => 6001 [postal_address] => [day_phone] => 0451250992 [mobile_phone] => 045125992 [alt_phone] => [email_address] => johno@email.com [tax_file_no] => 354543543 [whole_yr_tax_resident] => Yes [tax_resident_year] => Yes [tax_resident_year_ces] => Yes [tax_resident_start] => 2016-08-09 [tax_resident_stop] => 2016-08-08 [main_occupation] => Bus driver [have_abn_no] => Yes [abn_no] => 1212121212 [nature_of_business] => side businsss [married_defacto] => No [spouse_first_name] => [spouse_last_name] => [spouse_other_name] => [spouse_date_birth] => 0000-00-00 [spouse_tax_file_no] => [spouse_tax_income] => [spouse_whole_year] => No [spouse_from_to] => 0000-00-00 [have_children] => No [child_name] => [child_dob] => 0000-00-00 [credit_limit] => 0 [receive_leads] => yes [status] => approved [user_id] => 11 [created_at] => 2016-08-29 06:49:04 [updated_at] => 2016-08-29 18:44:00 [ID] => 11 [user_login] => Johno [user_pass] => $P$B93ePT/nI7fn1FOxvh9mQuai.9G9Cm0 [user_nicename] => johno [user_email] => johno@email.com [user_url] => johno@email.com [user_registered] => 2016-08-29 06:49:04 [user_activation_key] => 1472453473:$P$BbkFxdG400b51jnf0x7UnLYShuPf/v1 [user_status] => 0 [display_name] => Johno )
+*/
 ?>
 
 <form class="" action="" method="post" enctype="multipart/form-data">

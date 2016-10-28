@@ -21,9 +21,7 @@ if (!class_exists("lead_capture_pro")) {
 					'url'				=>	plugins_url() . '/lead-capture-pro',
 					'plugin_name' 		=> 'lead-capture-pro',
 					'update_version' 	=> 100
-			);
-				
-				
+				);
 			include_once plugin_dir_path( __DIR__ ) . $this->settings['plugin_name'] . '/core/db.php';
 			$this->db = $LcpDb;
 			
@@ -982,7 +980,8 @@ if (!class_exists("lead_capture_pro")) {
 		function lodgement_history()
 		{
 			$company = $this->get_company_from_user_id();
-			$results = $this->leads->getByCompanyID( $company->id );			
+			$results = $this->leads->getByCompanyID( $company->id );
+			
 			$results = $this->leads_to_visible_fields( $results );
 			
 			$page_title = "Your Lodgements";
@@ -1066,8 +1065,6 @@ if (!class_exists("lead_capture_pro")) {
 			$this->register_css();
 			include_once dirname ( __FILE__ ).'/views/admin/lead-details-page.php';
 		}
-		
-		
 		function lcp_lead_data_to_array($form_data,$form_id)
 		{
 			$data=Array();
@@ -1277,21 +1274,13 @@ if (!class_exists("lead_capture_pro")) {
 				$this->lead_details($_GET['ref']);
 				return;
 			}
-			$page_title = "Tax Lodgements";
+			$page_title = "Tax Lodgement Cart";
 			// Get the logged in users purchased leads
+			$company 	= $this->get_company_from_user_id();
+			$leads 		= $this->get_leads_from_company_id($company->id);
+			$leads_as_string = $this->array_ids_to_comma_seperated_string($leads);
 			
-			$company = $this->get_company_from_user_id();
-			$results = $this->leads->getByCompanyID( $company->id );			
-			//$results = $this->leads_to_visible_fields( $results1 );			
-			//print_r($results);
-			
-			//$company 	= $this->get_company_from_user_id();
-			//$leads 		= $this->get_leads_from_company_id($company->id);
-			//$leads_as_string = $this->array_ids_to_comma_seperated_string($leads);			
-			//$results = $this->leads_to_visible_fields( $this->leads->get('approved') );
-			
-			//print_r($leads);
-			
+			$results = $this->leads_to_visible_fields( $this->leads->get('approved') );
 			/*
 			if (strlen($leads_as_string)>0) {
 				$results = $this->leads_to_visible_fields( $this->leads->available($leads_as_string) );
@@ -1604,79 +1593,51 @@ if (!class_exists("lead_capture_pro")) {
 			$options = get_option('lcp');
 			$payment_gateway = $options['global']['lcp_payment_gateway'];
 			$purchased = false;
-			
-			$company = $this->get_company_from_user_id();
-			$results = $this->leads->getByCompanyID( $company->id );
-			
-			//print_r($this->leads->getByHash($ref));
-			echo "<script>console.log( 'just started' );</script>";
-			
 			if ($payment_gateway == 'stripe' && isset($_POST['stripeToken'])) {
 				$cashier = new LcpStripePayment($options, $this->db);
 				$purchased = $cashier->charge(	$_POST['stripeToken'], 
 												$this->leads->getByHash($ref), 
 												$this->companies->byUserID(get_current_user_id(), 'approved'));
-			
-			} else if ( $payment_gateway == 'paypal_html' && isset($_POST['auth'])) { //&& isset($_POST['auth'])
-				
-				echo "<script>console.log( 'paypal registered' );</script>";
-				
+			} else if ( $payment_gateway == 'paypal_html' && isset($_POST['auth']) ) {
 				$cashier = new LcpPaypalPayment($options, $this->db);
 				$purchased = $cashier->charge(	$_POST['auth'], 
 												$this->leads->getByHash($ref), 
-												$this->companies->byUserID(get_current_user_id(), 'approved'));			
-			
+												$this->companies->byUserID(get_current_user_id(), 'approved'));
 			} else if ( $payment_gateway == 'on_account' && isset($_POST['item_name']) ) {
 				$cashier = new LcpOnAccountPayment($options, $this->db);
 				$purchased = $cashier->charge(	$_POST['item_name'], 
 												$this->leads->getByHash($ref), 
 												$this->companies->byUserID(get_current_user_id(), 'approved'));
-				
 				// Deduct purchase from credit limit
 				$company_to_charge = $this->companies->byUserID(get_current_user_id(), 'approved');
 				$this->companies->reduceCreditLimit($company_to_charge->id);
-			}			
-			
+			}
 			if ($purchased == true) {
-				
-				$outputx = "<script>console.log( 'purchased == true' );</script>";
-				echo $outputx;
-				
-				// Get the users details - this is good
-				$user = $this->get_company_from_user_id();				
-				
-				// Purchase the lead/lodgement - add an order id to the companies leads table
-				// this completed - added a new row with insert
-				$this->leads->purchase($user->id, $this->lead_id_from_hash($_GET['ref']), $this->lead_id_from_hash($_GET['ref']));
-				
-				
+				// Get the users details
+				$user = $this->get_company_from_user_id();
+				// Purchase the lead
+				$this->leads->purchase($user->id, $this->lead_id_from_hash($_GET['ref']));
 				// Get all the lead details
 				$results = $this->leads->getByHash($_GET['ref']);
 				$data = $this->lcp_lead_data_to_array( unserialize( $results->data ), $results->form_id );
 				
-				// Broadcast email to purchaser -- this needs to change to just an alert.
-				// The email was sent out
+				// Broadcast email to purchaser
 				$email_data = array( 	'submitter' 		=>	$user->company_name,
 										'site_name' 		=>	get_bloginfo('name'),
 										'lead_reference' 	=>	$this->lead_id_from_hash($_GET['ref'] ), 
 										'data'				=>  $data,
 										'created_at' 		=> 	$results->created_at );
 				$broadcast = new LcpBroadcast($this->options);
-				$broadcast->send('lead-purchased', $email_data, $user->user_email, 'Thank you for submitting your tax lodgement');
-				
-				
+				$broadcast->send('lead-purchased', $email_data, $user->user_email, 'Thank you for purchasing a lead');
 			}
-			
 			$paypal_btn_mode = $options['paypal']['lcp_paypal_btn_mode'];
 			$paypal_btn_mode = ($paypal_btn_mode=='live') ? 'https://www.paypal.com': 'https://www.sandbox.paypal.com';
 			$lead_value 	 		= $options['global']['lcp_lead_price'];
 			$paypal_email_address 	= $options['paypal']['lcp_paypal_email_address'];
 			$currency_accepted 		= $options['global']['lcp_currency_accepted'];
-			
-			// dont think we need this			
-			//$lead = $this->leads->getByHash($ref);
-			//$visible_data = $this->leads_to_visible_fields( Array( $lead ) );
-			//$data = $this->lcp_lead_data_to_array( unserialize( $lead->data ), $lead->form_id );
+			$lead = $this->leads->getByHash($ref);
+			$visible_data = $this->leads_to_visible_fields( Array( $lead ) );
+			$data = $this->lcp_lead_data_to_array( unserialize( $lead->data ), $lead->form_id );
 			
 			// Has the logged in user already purchased this lead?
 			// If so, show them the full details and remove the buy button.
@@ -1684,22 +1645,11 @@ if (!class_exists("lead_capture_pro")) {
 			$company = $this->companies->byUserID(get_current_user_id(), 'approved');
 			// Get the companies credit limit (for on_account payments)
 			$credit_limit = $this->companies->creditLimit($company->id);
-			
-			// Want to remove the button when the lead is purchased
-			//$payment_results = $this->leads->hasPurchased($company->id, $lead->id);
-			$payment_results = $this->leads->hasPurchased($company->id);
-			print_r($payment_results);
-			
+			$payment_results = $this->leads->hasPurchased($company->id, $lead->id);
 			$this->register_css();
 			$this->register_js();
-			
-			//$output = "<script>console.log( 'Debug Objects: " . implode( ',', $data) . "' );</script>";
-			//echo $output;
-			
 			include_once dirname ( __FILE__ ).'/views/user/lead-details.php';
 		}
-		
-		
 		function lcp_admin_forms_dashboard($form_created = false) {
 			if ( $_GET['type'] == 'form' && $_GET['delete'] == 1) {
 				$this->forms->delete($_GET['ref']);
@@ -1710,7 +1660,6 @@ if (!class_exists("lead_capture_pro")) {
 			$this->register_js();
 			include_once dirname ( __FILE__ ).'/views/admin/forms-overview.php';
 		}
-		
 		function lcp_admin_form_add() {
 			if ( isset($_POST['name']) && strlen($_POST['name']) > 2) {
 				// We are storing the input
@@ -2256,8 +2205,7 @@ if (!class_exists("lead_capture_pro")) {
 		 */
 		function admin_menu()
 		{
-		if ( is_admin() && ! current_user_can('lcp_member')  && ! current_user_can('lcp_admin') )
-		{
+		if ( is_admin() && ! current_user_can('lcp_member')  && ! current_user_can('lcp_admin') ) {
 			add_options_page('SS Accounting', 'SS Accounting', 9, basename(__FILE__), array($this, 'load_settings_page'));
 			add_menu_page('SS Accounting', 'SS Accounting', 'manage_options', 'lcp_admin_dashboard', array($this,'admin_dashboard'), 'dashicons-chart-area',31);
 			add_submenu_page( 'lcp_admin_dashboard', 'Dashboard', 'Dashboard', 'manage_options', 'lcp_admin_dashboard', array($this,'admin_dashboard') ,31);
@@ -2277,17 +2225,19 @@ if (!class_exists("lead_capture_pro")) {
 			add_submenu_page( null, 'Add Form', 'add_form', 'edit_lcp_form', 'lcp_admin_form_add', array($this,'lcp_admin_form_add') ,31);
 			add_submenu_page( null, 'Edit Lead', 'edit_lead', 'manage_options', 'lcp_admin_leads_edit', array($this,'lcp_admin_edit_lead') ,31);
 			add_submenu_page( null, 'Edit Company', 'edit_company', 'manage_options', 'lcp_admin_company_edit', array($this,'lcp_admin_edit_company') ,31);
-		
 		} else if (is_admin() && current_user_can('lcp_member') ) {
 			//add_menu_page('lcp_leads', 'Lodgements', 'lcp_member', 'lcp_leads', array($this,'leads_overview'), 'dashicons-chart-area',30);
-        add_menu_page('lcp_dashboard', 'Dashboard', 'lcp_member', 'lcp_dashboard', array($this,'leads_dashboard'), 'dashicons-dashboard',30);                                        
+        add_menu_page('lcp_dashboard', 'Dashboard', 'lcp_member', 'lcp_dashboard', array($this,'leads_dashboard'), 'dashicons-dashboard',30);
+                                        
         add_menu_page('lcp_leads', 'Lodgements', 'lcp_member', 'lcp_leads', array($this,'leads_overview'), 'dashicons-chart-area',30);        
-        add_menu_page('lcp_profile', 'Personal Profile', 'lcp_member', 'lcp_profile', array($this,'my_account'), 'dashicons-admin-users',30);                
+        add_menu_page('lcp_profile', 'Personal Profile', 'lcp_member', 'lcp_profile', array($this,'my_account'), 'dashicons-admin-users',30);
+                
 		add_submenu_page( 'lcp_leads', 'Lodgement History', 'Lodgement History', 'lcp_member', 'lcp_lodgement_history', array($this,'lodgement_history') ,30);
 		add_submenu_page( 'lcp_leads', 'Income', 'Income', 'lcp_member', 'lodgement_income', array($this,'lodgement_income') ,30);
 		add_submenu_page( 'lcp_leads', 'Deductions', 'Deductions', 'lcp_member', 'lodgement_deductions', array($this,'lodgement_deductions') ,30);
-		//add_submenu_page( 'lcp_leads', 'Other', 'Other', 'lcp_member', 'lodgement_other', array($this,'lodgement_other') ,30);
-		//add_submenu_page( 'lcp_leads', 'Documents', 'Documents', 'lcp_member', 'lodgement_docs', array($this,'lodgement_docs') ,30);		
+		add_submenu_page( 'lcp_leads', 'Other', 'Other', 'lcp_member', 'lodgement_other', array($this,'lodgement_other') ,30);
+		add_submenu_page( 'lcp_leads', 'Documents', 'Documents', 'lcp_member', 'lodgement_docs', array($this,'lodgement_docs') ,30);
+		
 		add_submenu_page('lcp_leads', 'Cart', 'Cart', 'lcp_member', 'leads_overview', array($this,'leads_overview'),30);
 		
 		//add_submenu_page( 'lcp_leads', 'Personal Profile', 'Personal Profile', 'lcp_member', 'my_account', array($this,'my_account') ,30);

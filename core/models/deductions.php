@@ -115,33 +115,69 @@ class LcpDeductions {
 		$result['ded_veh_services']=$data['ded_veh_services'];
 		$result['ded_veh_tyres_batteries']=$data['ded_veh_tyres_batteries'];
 		$result['ded_veh_repairs_maint']=$data['ded_veh_repairs_maint'];
-		$result['ded_veh_car_washes']=$data['ded_veh_car_washes'];		
-		
+		$result['ded_veh_car_washes']=$data['ded_veh_car_washes'];
 		$result['ded_veh_parking_other_q']=$data['ded_veh_parking_other_q'];
-		$result['ded_veh_parking_other_c']=$data['ded_veh_parking_other_c'];
+		//$result['ded_veh_parking_other_docs']=$data['ded_veh_parking_other_docs'];
 		$result['ded_veh_taxi_fares_q']=$data['ded_veh_taxi_fares_q'];
-		$result['ded_veh_taxi_fares_c']=$data['ded_veh_taxi_fares_c'];
+		//$result['ded_veh_taxi_fares_docs']=$data['ded_veh_taxi_fares_docs'];
 		$result['ded_veh_travel_for_work_q']=$data['ded_veh_travel_for_work_q'];
-		$result['ded_veh_travel_for_work_c']=$data['ded_veh_travel_for_work_c'];
+		$result['ded_veh_travel_allowance_q']=$data['ded_veh_travel_allowance_q'];
+		$result['ded_veh_travel_allowance_gross']=$data['ded_veh_travel_allowance_gross'];
+		$result['ded_veh_travel_allowance_tax']=$data['ded_veh_travel_allowance_tax'];
 		$result['ded_veh_ppe_q']=$data['ded_veh_ppe_q'];
-		$result['ded_veh_ppe_c']=$data['ded_veh_ppe_c'];
+		$result['ded_veh_ppe_desc']=$data['ded_veh_ppe_desc'];
+		$result['ded_veh_ppe_amount']=$data['ded_veh_ppe_amount'];
+		//$result['ded_veh_ppe_docs']=$data['ded_veh_ppe_docs'];
 		$result['ded_slf_ed_q']=$data['ded_slf_ed_q'];
-		$result['ded_slf_ed_c']=$data['ded_slf_ed_c'];
+		$result['ded_slf_ed_course_name']=$data['ded_slf_ed_course_name'];
+		$result['ded_slf_ed_union_fees']=$data['ded_slf_ed_union_fees'];
+		$result['ded_slf_ed_course_fees']=$data['ded_slf_ed_course_fees'];
+		$result['ded_slf_ed_books_stat']=$data['ded_slf_ed_books_stat'];
+		$result['ded_slf_ed_depreciation']=$data['ded_slf_ed_depreciation'];
+		$result['ded_slf_ed_seminars']=$data['ded_slf_ed_seminars'];
+		$result['ded_slf_ed_travel']=$data['ded_slf_ed_travel'];
+		$result['ded_slf_ed_other_desc']=$data['ded_slf_ed_other_desc'];
+		$result['ded_slf_ed_other_amount']=$data['ded_slf_ed_other_amount'];
 		$result['ded_othr_wk_exp_q']=$data['ded_othr_wk_exp_q'];
-		$result['ded_othr_wk_exp_c']=$data['ded_othr_wk_exp_c'];
+		$result['ded_othr_wk_exp_home_office']=$data['ded_othr_wk_exp_home_office'];
+		$result['ded_othr_wk_exp_comp_softwre']=$data['ded_othr_wk_exp_comp_softwre'];
+		$result['ded_othr_wk_exp_phone_mobile']=$data['ded_othr_wk_exp_phone_mobile'];
+		$result['ded_othr_wk_exp_tools_equip']=$data['ded_othr_wk_exp_tools_equip'];
+		$result['ded_othr_wk_exp_subscrip_union']=$data['ded_othr_wk_exp_subscrip_union'];
+		$result['ded_othr_wk_exp_journals_magz']=$data['ded_othr_wk_exp_journals_magz'];
+		$result['ded_othr_wk_exp_depreciation']=$data['ded_othr_wk_exp_depreciation'];
+		$result['ded_othr_wk_exp_sun_protect']=$data['ded_othr_wk_exp_sun_protect'];
+		$result['ded_othr_wk_exp_crs_fees']=$data['ded_othr_wk_exp_crs_fees'];
+		$result['ded_othr_wk_exp_crs_trvl_fees']=$data['ded_othr_wk_exp_crs_trvl_fees'];
+		$result['ded_othr_wk_exp_crs_othr_desc']=$data['ded_othr_wk_exp_crs_othr_desc'];
+		$result['ded_othr_wk_exp_crs_othr_amnt']=$data['ded_othr_wk_exp_crs_othr_amnt'];
+		$result['ded_othr_wk_exp_othr_desc']=$data['ded_othr_wk_exp_othr_desc'];
+		$result['ded_othr_wk_exp_othr_amount']=$data['ded_othr_wk_exp_othr_amount'];
+		//$result['ded_othr_wk_exp_othr_docs']=$data['ded_othr_wk_exp_othr_docs'];
 		$result['ded_low_val_pool_prv_yr_q']=$data['ded_low_val_pool_prv_yr_q'];
-		$result['ded_low_val_pool_prv_yr_c']=$data['ded_low_val_pool_prv_yr_c'];
+		$result['ded_low_val_pool_prv_yr_balce']=$data['ded_low_val_pool_prv_yr_balce'];
+		$result['ded_low_val_pool_prv_yr_assets']=$data['ded_low_val_pool_prv_yr_assets'];
 		$result['ded_exp_ern_int_or_divd_q']=$data['ded_exp_ern_int_or_divd_q'];
-		$result['ded_exp_ern_int_or_divd_c']=$data['ded_exp_ern_int_or_divd_c'];
+		$result['ded_exp_ern_int_or_divd_desc']=$data['ded_exp_ern_int_or_divd_desc'];
+		$result['ded_exp_ern_int_paid']=$data['ded_exp_ern_int_paid'];
+		$result['ded_exp_ern_mngt_fes']=$data['ded_exp_ern_mngt_fes'];		
 		$result['ded_chrty_gfts_donat_q']=$data['ded_chrty_gfts_donat_q'];
-		$result['ded_chrty_gfts_donat_c']=$data['ded_chrty_gfts_donat_c'];
+		$result['ded_chrty_name']=$data['ded_chrty_name'];
+		$result['ded_chrty_amount']=$data['ded_chrty_amount'];
+		//$result['ded_chrty_docs']=$data['ded_chrty_docs'];
 		$result['ded_lst_yr_rt_tx_agt_q']=$data['ded_lst_yr_rt_tx_agt_q'];
-		$result['ded_lst_yr_rt_tx_agt_c']=$data['ded_lst_yr_rt_tx_agt_c'];
+		$result['ded_lst_yr_tx_agt_name']=$data['ded_lst_yr_tx_agt_name'];
+		$result['ded_lst_yr_tx_agt_address']=$data['ded_lst_yr_tx_agt_address'];
+		$result['ded_lst_yr_tx_agt_paid']=$data['ded_lst_yr_tx_agt_paid'];
+		$result['ded_lst_yr_tx_agt_dist_trvl']=$data['ded_lst_yr_tx_agt_dist_trvl'];
 		$result['ded_prsn_spr_cont_q']=$data['ded_prsn_spr_cont_q'];
-		$result['ded_prsn_spr_cont_c']=$data['ded_prsn_spr_cont_c'];
+		$result['ded_prsn_spr_fund_name']=$data['ded_prsn_spr_fund_name'];
+		$result['ded_prsn_spr_acc_num']=$data['ded_prsn_spr_acc_num'];
+		$result['ded_prsn_spr_fund_abn']=$data['ded_prsn_spr_fund_abn'];
+		$result['ded_prsn_spr_fund_tfn']=$data['ded_prsn_spr_fund_tfn'];
 		$result['ded_prsn_othr_ded_q']=$data['ded_prsn_othr_ded_q'];
-		$result['ded_prsn_othr_ded_c']=$data['ded_prsn_othr_ded_c'];
-		
+		$result['ded_prsn_othr_ded_desc']=$data['ded_prsn_othr_ded_desc'];
+		$result['ded_prsn_othr_ded_amnt']=$data['ded_prsn_othr_ded_amnt'];
 		//$result['ded_misc_other']=$data['ded_misc_other'];
 		//$result['status']=$data['status'];
 		//$result['created_at']=$data['created_at'];
@@ -180,16 +216,9 @@ class LcpDeductions {
 			$filenames = array(			
 			'ded_veh_parking_other_docs',
 			'ded_veh_taxi_fares_docs',
-			'ded_veh_travel_for_work_docs',
 			'ded_veh_ppe_docs',
-			'ded_slf_ed_docs',
-			'ded_othr_wk_exp_docs',
-			'ded_low_val_pool_prv_yr_docs',
-			'ded_exp_ern_int_or_divd_docs',
-			'ded_chrty_gfts_donat_docs',
-			'ded_lst_yr_rt_tx_agt_docs',
-			'ded_prsn_spr_cont_docs',
-			'ded_prsn_othr_ded_docs'
+			'ded_othr_wk_exp_othr_docs',
+			'ded_chrty_docs'	
 			);			
 			
 			for( $i=0; $i < count($filenames); $i++ ) {				

@@ -4,37 +4,35 @@
 	
 	<?php if(count($results)>0) : ?>
 	<?php
-	/*foreach( $results as $forms )
+	foreach( $results as $forms )
 	{
-	print_r($forms);*/
-	
 	?>		
 	<table class="table">
 		<thead>
 		<tr>
 			<th>#</th>
-			<th>Company Id</th>				
-			<th>Income Id</th>
-			<th>Deduction Id</th>
-			<th>Order Id</th>
+			<th>Name</th>				
+			<th>Date Added</th>
+			<th></th>
 			<th>Price (<?php echo $this->options->get('global', 'lcp_currency_accepted') ?>)</th>
+			<th></th>
 		</tr>
 		</thead>
 		<tbody>
-		<?php foreach ($results as $lead) : ?>
+		<?php foreach ($forms['leads'] as $lead) : ?>
 			<?php if($this->availability($lead->id) > 0 ) : ?>
-			
-			<tr>				
+			<tr>
 				<td><?php echo $lead->id; ?></td>
-				<td><?php echo $lead->company_id; ?></td>				
-				<td><?php echo $lead->income_id; ?></td>
-				<td><?php echo $lead->deductions_id; ?></td>				
+				
+				<td><?php echo $company->first_name; ?></td>
+				
+				<td><?php echo $this->convert_date_to_format($lead->created_at, 'l dS F @ H:i:s'); ?></td>
 				<td><?php //echo $this->availability($lead->id); ?></td>
 				<?php 
 					if ($this->options->get('global', 'lcp_payment_gateway') == 'stripe'){
 						$price = sprintf('%.2f', $this->options->get('global', 'lcp_lead_price') / 100);
 					} else {
-						$price = $this->options->get('global', 'lcp_companies');
+						$price = $this->options->get('global', 'lcp_lead_price');
 					}
 				?>
 				<td><?php echo $price ?></td>
@@ -45,7 +43,7 @@
 		</tbody>
 	</table>
 	<?php
-	//}
+	}
 	?>
 	<?php else: ?>
 		<div class="update-nag">

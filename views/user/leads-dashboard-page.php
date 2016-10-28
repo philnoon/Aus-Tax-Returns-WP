@@ -53,11 +53,27 @@ if ($dedCompletedPerc <25) {
 	$dedBarProgress = 'progress-bar-success';
 }
 
+/* Otherinfo Progress */
+$otherinfo_array = (array) $otherinfoSubmitted;
+$otherArraylength = count($otherinfo_array);
+$otherNotNulls  = count(array_keys( $otherinfo_array, !null));  
+$otherCompletedPerc = round(($otherNotNulls-14)*100/($otherArraylength),0);
+$otherBarProgress = "";
+
+if ($otherCompletedPerc <25) {
+    $otherBarProgress = 'progress-bar-danger';
+} elseif ($otherCompletedPerc >26 &&  $otherCompletedPerc <61) {
+    $dedBarProgress = 'progress-bar-warning';
+} elseif ($otherCompletedPerc >61 && $otherCompletedPerc <81) {
+    $otherBarProgress = 'progress-bar-info';
+} elseif ($otherCompletedPerc >81) {
+	$otherBarProgress = 'progress-bar-success';
+}
 ?>
         <div class="row">        
         <div class="col-sm-12">
         	<!-- new starter -->        
-        	<h3 style="color: #f2705d;"><img src="<?php echo site_url().'/wp-content/uploads/2016/10/ssas-logo-numbersx2.png'; ?>" width="60"/> Simple Solutions Accounting Services</h3>
+        	<p><img src="<?php echo site_url().'/wp-content/uploads/2016/07/simple-solutions-accounting-logo-250.jpg'; ?>" width="100"/></p>
         </div>
         
         <div class="col-sm-4">
@@ -73,9 +89,9 @@ if ($dedCompletedPerc <25) {
             	
             	<h3><a href="<?php echo site_url(); ?>/wp-admin/admin.php?page=lodgement_deductions" class="btn btn-primary">Step 3: Deductions <i class="fa fa-arrow-right"></i></a></h3>
             	
-            	<!--<h3><a href="<?php echo site_url(); ?>/wp-admin/admin.php?page=lodgement_other" class="btn btn-primary">Step 4: Other Income Information <i class="fa fa-arrow-right"></i></a></h3> -->
+            	<h3><a href="<?php echo site_url(); ?>/wp-admin/admin.php?page=lodgement_other" class="btn btn-primary">Step 4: Other Income Information <i class="fa fa-arrow-right"></i></a></h3>  
             	
-            	<h3><a href="<?php echo site_url(); ?>/wp-admin/admin.php?page=leads_overview" class="btn btn-primary">Step 4: Payment &amp; Submit <i class="fa fa-arrow-right"></i></a></h3>         
+            	<h3><a href="<?php echo site_url(); ?>/wp-admin/admin.php?page=leads_overview" class="btn btn-primary">Step 5: Payment &amp; Submit <i class="fa fa-arrow-right"></i></a></h3>         
 
               	<p><a href="">Contact Us</a></p>
             </div>
@@ -107,7 +123,14 @@ if ($dedCompletedPerc <25) {
 				  <div class="progress-bar <?php echo $dedBarProgress; ?>" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: <?php echo $dedCompletedPerc; ?>%;">
 				    <?php echo $dedCompletedPerc; ?>% Completed
 				  </div>
-				</div>                            
+				</div> 
+              
+              <p>Other</p>
+              <div class="progress">
+                <div class="progress-bar <?php echo $otherBarProgress; ?>" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: <?php echo $otherCompletedPerc; ?>%;">
+                  <?php echo $otherCompletedPerc; ?>% Completed
+                </div>
+              </div>               
               
             </div>
           </div>

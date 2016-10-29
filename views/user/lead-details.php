@@ -8,6 +8,13 @@
 	//print_r($payment_results);
 	?>
 	
+	<!--
+	*
+	** This is a lodgement Payment change
+	*
+	*
+	-->
+	
 	<?php if (isset($lead_paid_for)) : ?>
 	<div class="updated">
 		<p>Thank you, the lead has been purchased.</p>

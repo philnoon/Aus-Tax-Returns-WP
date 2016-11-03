@@ -54,12 +54,77 @@ if ($dedCompletedPerc <25) {
 }
 
 ?>
-        <div class="row">        
+<div class="row">        
         <div class="col-sm-12">
         	<!-- new starter -->        
         	<h3 style="color: #f2705d;"><img src="<?php echo site_url().'/wp-content/uploads/2016/10/ssas-logo-numbersx2.png'; ?>" width="60"/> Simple Solutions Accounting Services</h3>
+        	<h4><?php echo $page_title; ?></h4>	
         </div>
-        
+</div> 
+<div class="row">       
+        <!--
+        -->
+		<div class="col-sm-12">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">Start a new lodgement</h3>
+            </div>
+            <div class="panel-body">            
+            	
+            	<h3><a href="<?php echo site_url(); ?>/wp-admin/admin.php?page=lcp_profile" class="btn btn-primary">Step 1: Personal profile <i class="fa fa-arrow-right"></i></a></h3>
+            	
+            	<!--
+            	create a new row in wp_lcp_companies_leads
+            	create a new 
+            	-->                    	
+            	
+            </div>
+          </div>
+        </div>
+        <!--
+        -->
+        <div class="col-sm-12">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">List of Lodgements</h3>
+            </div>
+            <div class="panel-body">           	
+            	
+            	<?php if(count($results)>0) : ?>	
+            	<table class="table">
+            		<thead>
+            		<tr>
+            			<th>#</th>				
+            			<th>Edit Income</th>
+            			<th>Edit Deductions</th>
+            			<th>Submit Lodgement</th>
+            			<th>Date Created</th>
+            		</tr>
+            		</thead>
+            		<tbody>
+            		<?php foreach ($results as $company_lead) : ?>            			
+            			<tr>				
+            				<td><?php echo $company_lead->id; ?></td>
+            				
+            				<td><a href="<?php echo site_url(); ?>/wp-admin/admin.php?page=lodgement_income_by_id&id=<?php echo $company_lead->income_id ?>" class="btn btn-primary">Income</a></td>
+            				<td><a href="<?php echo site_url(); ?>/wp-admin/admin.php?page=lodgement_deductions" class="btn btn-primary">Deductions</a></td>
+            				
+            				<td><a href="<?php echo site_url(); ?>/wp-admin/admin.php?page=lcp_leads" class="btn btn-primary">Submit</a></td>
+            				
+            				<td><?php echo $company_lead->created_at; ?></td>
+            			</tr>
+            		<?php endforeach; ?>
+            		</tbody>
+            	</table>
+            	<?php else: ?>
+            	<div class="update-nag">There are no lodgements submitted</div> 
+            	<?php endif; ?>           	        	
+            	
+            </div>
+          </div>
+        </div>        
+</div>        
+<div class="row">
         <div class="col-sm-4">
           <div class="panel panel-info">
             <div class="panel-heading">
@@ -124,5 +189,5 @@ if ($dedCompletedPerc <25) {
           </div>
         </div>
         <!-- /.col-sm-4 -->
-		</div>
+</div>
 </div>

@@ -40,7 +40,8 @@ class LcpPaypalPayment {
 						'payment_provider' => 'paypal', 
 						'transaction_reference' => 'not available', 
 						'created_at' => date('Y-m-d H:i:s'),
-						'updated_at' => date('Y-m-d H:i:s'));
+						'updated_at' => date('Y-m-d H:i:s'),
+						'submitted_at' => date('Y-m-d H:i:s'));
 
 		$this->db->wpdb->insert($this->db->tables['orders'], $data);
 

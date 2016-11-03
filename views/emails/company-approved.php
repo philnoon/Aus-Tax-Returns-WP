@@ -5,7 +5,7 @@
 	<body>
 		<table cellpadding="20" cellspacing="20" width="600" style="border:1px solid #000000; border-collapse: collapse">
 			<tr>
-				<td bgcolor="#eeeeee"><h1>Simple Solutions Accounting</h1></td>
+				<td bgcolor="#eeeeee"><h1>Simple Solutions Accounting Services</h1></td>
 			</tr>
 			<tr>
                             <td>

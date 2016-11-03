@@ -1,21 +1,8 @@
-<!--
-end wrapper div
-
-    <div class="message message-success">
-        <p>Your details have been submitted and are now with our team.</p>
-        <p><?php //echo $errors; ?></p>
-    </div>
--->
 <div>
 <center>
 <div>    
-    <!--
-    <img src="<?php echo site_url(); ?>/wp-content/uploads/2016/07/fb-login.png"/>
-    <p>get the facebook profile details</p>
-    -->
-    
-    <h2 style="font-family: Raleway;font-weight: 300;text-align: center;color: #fff;line-height: 1.4em;font-size: 36px;">Signup with your email address</h2>    
-    <?php if( $validated === true ) : ?>
+   
+    <?php if($validated1 == 'allgood'/*$validated === true*/ ) : ?>
         
         <script type="text/javascript">
         jQuery(document).ready(function($) {
@@ -25,22 +12,22 @@ end wrapper div
     
     <?php endif; ?>
     
-    <?php if( $validated === false ) : ?>
+    <?php if($validated1 == 'false' /*$validated === false*/ ) : ?>
     <div class="message message-error" style="text-align:center;border:none;color: #f00;">
-            <p>Your name and email address are required.</p>
+            <!-- <p>Your name and email address are required.</p> -->
     </div>
     <?php endif; ?>
     
-    <?php if(isset($errors)) : ?>
+    <?php if($validated1 == 'false' && isset($errors)) : ?>
     <div class="message message-error" style="text-align:center;border:none;color: #f00;">
             <p><?php echo $errors; ?></p>
     </div>
     <?php endif; ?>
     
-    <form action="" name="signupform" method="post" class="lcp-form" onsubmit="return checkForm(this);">
+    <form action="" name="signupform" method="post" class="lcp-form" id="signup-form" onsubmit="return checkForm(this);">
 	<div class="lcp-form-control">
-    <input type="text" name="first_name" value="" placeholder="Name" style="padding: 10px; border: 1px solid #000; background: #ffffff; width: 200px; height: 45px; border-radius: 0;" maxlength="16" autocomplete="off" required/>                
-    <input type="email" name="email" value="" placeholder="Email Address" style="padding: 10px; border: 1px solid #000; background: #ffffff; width: 200px; height: 45px;border-radius: 0;" maxlength="30" autocomplete="off" required/>
+    <input type="text" name="first_name" value="" placeholder="Name" style="padding: 10px; border: 1px solid #000; background: #ffffff; width: 200px; height: 45px; border-radius: 0;" maxlength="40" autocomplete="off" required/>                
+    <input type="email" name="email" value="" placeholder="Email Address" style="padding: 10px; border: 1px solid #000; background: #ffffff; width: 200px; height: 45px;border-radius: 0;" maxlength="45" autocomplete="off" required/>
 	</div>        
             
         <span id="form-msg-fn" class="message"></span><br />
@@ -48,6 +35,7 @@ end wrapper div
 
 	<div class="lcp-form-control">
 	<input type="submit" name="submit" value="Signup"/>
+	<!-- <input type='button' id="jqButton" value='Submit form'/> -->
 	</div>
     </form>
 <div>
@@ -73,7 +61,6 @@ end wrapper div
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
   </div>
 </div>
-
 
 <script type="text/javascript">
   function checkForm()

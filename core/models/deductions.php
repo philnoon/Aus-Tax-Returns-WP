@@ -270,6 +270,14 @@ class LcpDeductions {
 	{
 		return $this->db->wpdb->query( " UPDATE ".$this->db->tables['leads']." SET status = '".$status."' WHERE hash = '".$hash."'");
 	}
+	
+	
+	function getLastId() {
+	
+			return $this->db->wpdb->insert_id;
+			//$lastid = $wpdb->insert_id;
+	
+		}
 
 		
 

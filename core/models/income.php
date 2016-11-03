@@ -43,6 +43,23 @@ class LcpIncome {
 
 		return $results[0];
 	}
+	
+	
+	
+	/*
+		 *
+		 * 	Purpose: Gets income by row id
+		 * 	Added in Version 1.0.5
+		 *
+		 */
+		function byUserIDandRowId($id) 
+		{
+			$results =  $this->db->wpdb->get_results("SELECT * FROM " . $this->db->tables['income'] ." WHERE id=" . $id);
+	
+			return $results[0];
+		}
+		
+		
 
 	/*
 	 *
@@ -282,6 +299,13 @@ class LcpIncome {
 	{
 		return $this->db->wpdb->query( " UPDATE ".$this->db->tables['income']." SET status = '".$status."' WHERE hash = '".$hash."'");
 	}
+	
+	function getLastId() {
+	
+			return $this->db->wpdb->insert_id;
+			//$lastid = $wpdb->insert_id;
+	
+		}
 
 		
 

@@ -48,6 +48,24 @@ class LcpLeads {
 
 	}
 	
+	/*
+		 *
+		 * 	Purpose: Gets a leads and orders by the company id
+		 * 	Added in Version 1.0.5
+		 *
+		 */
+		function getLeadsOrdersByCompanyID($id)
+		{
+	
+			if ( strlen($id) ==0 ) {
+				return array();
+			}
+			
+			$results = $this->db->wpdb->get_results("SELECT DISTINCT * FROM " . $this->db->tables['companies_leads']." JOIN " .$this->db->tables['orders']. " ON ".$this->db->tables['companies_leads'].".company_id = ".$this->db->tables['orders'].".company_id"." WHERE ".$this->db->tables['companies_leads'].".company_id='".$id."'");
+			return $results;
+	
+		}
+	
 	
 	function getByCompanyLead($hash)
 		{
@@ -107,6 +125,35 @@ class LcpLeads {
 		return $this->db->wpdb->insert($this->db->tables['leads'], $data);
 
 	}
+	
+
+	
+	/*
+	 *
+	 * 	Purpose: Insert a new user to company leads
+	 * 	Added in Version 1.0.5
+	 *
+	 */
+	function insert_new_user($data) {
+
+		return $this->db->wpdb->insert($this->db->tables['companies_leads'], $data);
+
+	}
+	
+	
+	/*
+		 *
+		 * 	Purpose: Insert a new user to company leads
+		 * 	Added in Version 1.0.5
+		 *
+		 */
+		function insert_new_order($data) {
+	
+			return $this->db->wpdb->insert($this->db->tables['orders'], $data);
+	
+		}
+		
+		
 
 	/*
 	 *
@@ -264,6 +311,20 @@ class LcpLeads {
 												" WHERE lead_id = '".$lead_id."'"
 												);
 
+	}
+	
+	function getLastId() {
+	
+			return $this->db->wpdb->insert_id;
+			//$lastid = $wpdb->insert_id;
+	
+	}	
+	
+	
+	function getCurrentOrderByLeadId($lead_id)
+	{
+		return $this->db->wpdb->get_results(	"SELECT * FROM ".$this->db->tables['orders'].
+												" WHERE ".$this->db->tables['orders'].".lead_id='".$lead_id."'" );
 	}
 
 }

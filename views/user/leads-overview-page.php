@@ -3,44 +3,44 @@
 	<h2><?php echo $page_title; ?></h2>
 	
 	<?php if(count($results)>0) : ?>
-	<?php
-	/*foreach( $results as $forms )
-	{
-	print_r($forms);*/
-	
-	?>		
+		
 	<table class="table">
 		<thead>
 		<tr>
 			<th>#</th>
 			<th>Company Id</th>				
-			<th>Income Id</th>
-			<th>Deduction Id</th>
-			<th>Order Id</th>
-			<th>Price (<?php echo $this->options->get('global', 'lcp_currency_accepted') ?>)</th>
+			<th>Created</th>
+			<th>Price</th>
+			<th></th>
 		</tr>
 		</thead>
 		<tbody>
 		<?php foreach ($results as $lead) : ?>
-			<?php if($this->availability($lead->id) > 0 ) : ?>
 			
 			<tr>				
 				<td><?php echo $lead->id; ?></td>
-				<td><?php echo $lead->company_id; ?></td>				
-				<td><?php echo $lead->income_id; ?></td>
-				<td><?php echo $lead->deductions_id; ?></td>				
-				<td><?php //echo $this->availability($lead->id); ?></td>
-				<?php 
-					if ($this->options->get('global', 'lcp_payment_gateway') == 'stripe'){
-						$price = sprintf('%.2f', $this->options->get('global', 'lcp_lead_price') / 100);
+				<td></td>
+				<td><?php echo $lead->created_at; ?></td>									
+				<td>
+				<?php
+					if ($this->options->get('global','lcp_payment_gateway') == 'stripe'){
+						$price = sprintf('%.2f', $this->options->get('global','lcp_lead_price') / 100);
 					} else {
-						$price = $this->options->get('global', 'lcp_companies');
+						$price = $this->options->get('global','lcp_lead_price');
 					}
+	
+					echo $price;
 				?>
-				<td><?php echo $price ?></td>
+				</td>
 				<td><a href="<?php echo admin_url(); ?>admin.php?page=lcp_leads&ref=<?php echo $lead->hash; ?>" class="button button-primary">Pay Now</a></td>
+				
+				<td>
+				<?php
+					include dirname(__FILE__).'/../partials/payment_gateways/'.$options['global']['lcp_payment_gateway'].'.php';
+				?>
+				</td>
+				
 			</tr>
-			<?php endif; ?>
 		<?php endforeach; ?>
 		</tbody>
 	</table>

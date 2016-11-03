@@ -94,7 +94,8 @@ class LcpBroadcast {
 			
 			$subhtml='';
 			
-			foreach( $data['data'] as $row )
+			//foreach( $data['data'] as $row )
+			foreach( $email_data['data'] as $row )
 			{
 				$subhtml.="<dl><dt><strong>".$row['label']."</strong></dt><dd>".$row['data']."</dd></dl>";
 			}
